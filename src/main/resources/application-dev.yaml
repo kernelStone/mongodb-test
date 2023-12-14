@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://zl:password@zhuleitest.vsa3r7y.mongodb.net/
