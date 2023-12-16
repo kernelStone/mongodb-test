@@ -21,10 +21,10 @@ import java.util.Date;
 @Document(collection = "tg_game_user")
 public class User {
     @Id
-    @Field(value = "_id")
     @Indexed(unique = true)
-    private ObjectId id;
+    private String id;
 
+    //@Field(value = "first_name")
     private String firstName;
 
     private String lastName;

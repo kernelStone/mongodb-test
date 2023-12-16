@@ -23,6 +23,9 @@ public abstract class BaseService<ID, T, M extends MongoRepository<T, ID>> imple
     @Resource
     private MongoTemplate mongoTemplate;
 
+    //@Resource
+    //private MongoLockDao mongoLockDao;
+
     private Class<T> clazz;
 
     public BaseService(Class<T> clazz) {
@@ -136,6 +139,20 @@ public abstract class BaseService<ID, T, M extends MongoRepository<T, ID>> imple
     public Optional<T> findById(ID id) {
         return dao.findById(id);
     }
+
+    /**
+     * 加锁 查找
+     * @param id
+     * @return
+     */
+    public Optional<T> lockFindById(ID id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        Update update = new Update();
+        //update
+        //mongoTemplate.upda(query,clazz);
+        return null;
+    }
+
 
     @Override
     public boolean existsById(ID id) {

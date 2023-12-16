@@ -36,7 +36,7 @@ public class Test {
 
     @org.junit.Test
     public void insertOne() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 10; i < 20; i++) {
             userService.insert(User.builder().userName("zhuleishitou000" + i).status(1).createDate(new Date())
                 .modifyDate(new Date()).build());
         }
@@ -118,19 +118,24 @@ public class Test {
      */
     @org.junit.Test
     public void testUpdateOne() {
-        log.info(" {} ", JSONObject.toJSONString(userService.findById(new ObjectId("657aa12da19b972cf410f1cd"))));
-        log.info(" {} ", JSONObject.toJSONString(userService.existsById(new ObjectId("657aa12da19b972cf410f1cd"))));
-        userService.updateSelective(User.builder()
-            .id(new ObjectId("657aa12ea19b972cf410f1ce"))
-            .userName("wangshuo001").build());
+        log.info(" {} ", JSONObject.toJSONString(userService.findById("657aa12ea19b972cf410f1ce")));
+        log.info(" {} ", JSONObject.toJSONString(userService.existsById("657aa12ea19b972cf410f1ce")));
+        //userService.updateSelective(User.builder()
+        //    .id(new ObjectId("657aa12ea19b972cf410f1ce"))
+        //    .userName("wangshuo001").build());
     }
 
     @org.junit.Test
     public void testUpdate() {
         Query query = new Query(Criteria.where("_id").is("657aa12ea19b972cf410f1cf"));
-        UpdateResult updateResult = userService.update(query, User.builder().id(
-            new ObjectId("657aa12ea19b972cf410f1ce")).status(1).build());
-        log.info(" {} ", updateResult);
+        //UpdateResult updateResult = userService.update(query, User.builder().id(
+        //    new ObjectId("657aa12ea19b972cf410f1ce")).status(1).build());
+        //log.info(" {} ", updateResult);
+    }
+
+    @org.junit.Test
+    public void testLock(){
+        //userService.findById()
     }
 
     /**
@@ -139,7 +144,7 @@ public class Test {
     @org.junit.Test
     public void testTransaction() {
         userManagerService.updateUser(User.builder()
-            .id(new ObjectId("657aa12ea19b972cf410f1d0"))
+            //.id(new ObjectId("657aa12ea19b972cf410f1d0"))
             .userName("wangshuo002")
             .build());
     }

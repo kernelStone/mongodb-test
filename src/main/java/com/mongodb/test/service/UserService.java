@@ -6,7 +6,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService extends BaseService<ObjectId, User, UserRepository>{
+public class UserService extends BaseService<String, User, UserRepository>{
     public UserService() {
         super(User.class);
     }
