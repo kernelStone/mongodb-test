@@ -141,18 +141,25 @@ public abstract class BaseService<ID, T, M extends MongoRepository<T, ID>> imple
     }
 
     /**
-     * 加锁 查找
+     * 行级 加锁 查找
+     *
      * @param id
+     *
      * @return
      */
-    public Optional<T> lockFindById(ID id) {
+    public T lock(ID id) {
         Query query = new Query(Criteria.where("_id").is(id));
         Update update = new Update();
-        //update
-        //mongoTemplate.upda(query,clazz);
-        return null;
+        update.set("locked", true);
+        return mongoTemplate.findAndModify(query, update, clazz);
     }
 
+    public UpdateResult unLock(ID id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        Update update = new Update();
+        update.set("locked", false);
+        return mongoTemplate.updateFirst(query, update, clazz);
+    }
 
     @Override
     public boolean existsById(ID id) {

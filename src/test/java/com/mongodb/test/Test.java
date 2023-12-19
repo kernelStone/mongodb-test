@@ -133,11 +133,36 @@ public class Test {
         //log.info(" {} ", updateResult);
     }
 
+    /**
+     * 测试乐关锁
+     */
     @org.junit.Test
-    public void testLock(){
+    public void testOptimisticLock(){
         //userService.findById()
+        User user=  userService.insert(User.builder()
+            .userName("hello")
+            .status(1)
+            .createDate(new Date())
+            .modifyDate(new Date())
+            .build());
+        User tmp = userService.findOne(user).orElse(null);
+        user.setUserName("helloWord");
+        userService.save(user);
+        userService.save(tmp); // throws OptimisticLockingFailureException
     }
 
+    /**
+     * 测试锁
+     */
+    @org.junit.Test
+    public void testLock() throws InterruptedException {
+        userManagerService.lockUpdateUser(User.builder().id("657aa12ea19b972cf410f1cf").build());
+    }
+
+    @org.junit.Test
+    public void testLock1() throws InterruptedException {
+        userManagerService.lockUpdateUser(User.builder().id("657aa12ea19b972cf410f1cf").build());
+    }
     /**
      * 事务测试
      */
